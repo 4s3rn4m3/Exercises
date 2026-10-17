@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# What recursive in the dir objects, and if i see a change or something add the change in a file that's it.
+
+# My theory is if i do git add , yo add your file in the stage so what may be happend well the /objects that is the place where git saved all the files and the changes and only save the content of each file, and the name is the SHA-1 that is base in the content of the file, so if I do a change in the file that already was in the objetct, git would be save again why ? becuse the hash that use git si SHA-1 and is based in the content soy the content change... so, the SHA-1 is different you need to add to the staeagain, well you need to add the content to the stage...
+
+# That is the tools probably i'm wrong Idk:(
+
+main() {
+	echo -e "Hi\n"
+	echo -e "This are the new files in your objects..."
+	echo "Numbero de archvios actuales: $current"
+	get_dir_git=$(find / -type d -name .git 2>/dev/null | grep "003_Exercises")
+	current=$(ls $get_dir_git/objects/* | wc -l)
+	while [ true ]; do
+		new_files=$(ls $get_dir_git/objects/* | wc -l)
+		if [ $current -lt $new_files ]; then
+			echo "Actualizado: $(($current - $new_files)) nuevos!"
+		fi
+	done
+}
+
+main
