@@ -1,4 +1,4 @@
-# Git Internals: Content-Addressable Storage
+# Git Internals: Content-Addressable Storage :3
 
 Git is not merely a version control system; it is a **Content-Addressable Storage** system. Instead of tracking changes to files, Git saves **snapshots** of the entire project. The key to this is the hash: the content determines the address (ID), not the filename.
 
