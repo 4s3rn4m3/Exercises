@@ -2,4 +2,4 @@
 
 ## NOOB:
 
-- [Responsive Card (Flexbooox 🐸)](https://use-root.github.io/Frontend-Mentor/newbie/social-links-profile-main/build/index.html)
+- [Responsive Card (Flexbooox 🐸)](https://z4root.github.io/Exercises/Web/FrontendMentor/newbie/social-links-profile-main/build/index.html)
