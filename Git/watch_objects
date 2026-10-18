@@ -10,7 +10,8 @@ main() {
 	echo -e "Hi\n"
 	echo -e "This are the new files in your objects..."
 	echo "Numbero de archvios actuales: $current"
-	get_dir_git=$(find / -type d -name .git 2>/dev/null | grep "003_Exercises")
+	root_dir=$(git rev-parse --show-toplevel)
+	get_dir_git=$(find $root_dir -type d -name .git 2>/dev/null)
 	current=$(ls $get_dir_git/objects/* | wc -l)
 	while [ true ]; do
 		new_files=$(ls $get_dir_git/objects/* | wc -l)
