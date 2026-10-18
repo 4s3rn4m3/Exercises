@@ -2,6 +2,13 @@
 
 Git is not merely a version control system; it is a **Content-Addressable Storage** system. Instead of tracking changes to files, Git saves **snapshots** of the entire project. The key to this is the hash: the content determines the address (ID), not the filename.
 
+**Index:**
+
+- [The Heart of Git ](##The Heart of Git: The `.git` Directory)
+- [Storage Optimization](##Storage Optimization: Object Sharding)
+-
+-
+
 ## 1. The Heart of Git: The `.git` Directory
 
 The `.git` folder is the object database where all project history and metadata are stored.
@@ -90,4 +97,10 @@ These commands allow you to interact directly with the object database:
 
 ---
 
-**References:** [Jon Mircha - Git Guide](https://jonmircha.com/git#github-pages)
+## 6. Branch 
+
+### References
+
+- [Jon Mircha - Git Guide](https://jonmircha.com/git#github-pages)
+- [Book Git](https://git-scm.com/book/es/v2)
+- [Doc Github](https://docs.github.com/es)
