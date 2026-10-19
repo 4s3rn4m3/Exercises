@@ -4,10 +4,10 @@ Git is not merely a version control system; it is a **Content-Addressable Storag
 
 **Index:**
 
-- [The Heart of Git ](#1-the-heart-of-git-the-.git-directory)
+- [The Heart of Git ](#1-the-heart-of-git-the-git-directory)
 - [Storage Optimization](#2-storage-optimization-object-sharding)
 - [Conventional Commits](#conventional-commits)
-- [The local lifecycle of Workflow](#-3the-local-lifecycle-workflow)
+- [The local lifecycle of Workflow](#3-the-local-lifecycle-workflow)
 - [Automation with Hooks](#4-automation-with-hooks)
 - [Technical Plumbing Commands](#5-technical-plumbing-commands)
 
