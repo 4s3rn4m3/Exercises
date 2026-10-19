@@ -4,10 +4,22 @@ Git is not merely a version control system; it is a **Content-Addressable Storag
 
 **Index:**
 
-- [The Heart of Git ](##The Heart of Git: The `.git` Directory)
-- [Storage Optimization](##Storage Optimization: Object Sharding)
--
--
+- [The Heart of Git ](#the-heart-of-git-the-.git-directory)
+- [Storage Optimization](#storage-optimization-object-sharding)
+- [Conventional Commits](#conventional-commits)
+- [The local lifecycle of Workflow](#the-local-lifecycle-workflow)
+- [Automation with Hooks](#automation-with-hooks)
+- [Technical Plumbing Commands](#technical-plumbing-commands)
+
+# Conventional Commits
+
+- feat: feat(web): add project social links.
+- fix: fix(workflow): fixed permission of writing in gh-pages.
+- docs: docs(web): update menu nav.
+- style: style(frontend): adjust color of the profile.
+- refactor: refactor(oop): improve the cicle of validation.
+- test: test(oop): add cases of class car.
+- chore: chore(ci): create a workflow of automatic test.
 
 ## 1. The Heart of Git: The `.git` Directory
 
@@ -98,6 +110,14 @@ These commands allow you to interact directly with the object database:
 ---
 
 ## 6. Branch 
+
+### Orphan branches
+
+## 7. Branch 
+
+## 8. Github Actions 
+
+## 9. Pull Request
 
 ### References
 
