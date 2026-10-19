@@ -2,7 +2,7 @@
 
 ## Live GitHub Pages
 
-[View Live Demo](https://z4root.github.io/Exercises/Web/FrontendMentor/newbie/social-links-profile-main/build/index.html)
+[View Live Demo](https://z4root.github.io/Exercises/FrontendMentor/newbie/social-links-profile-main/build/index.html)
 
 ![Design preview for the Social links profile coding challenge](./build/assets/images/ilustration/preview.jpg)
 
