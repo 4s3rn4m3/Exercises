@@ -109,9 +109,26 @@ These commands allow you to interact directly with the object database:
 
 ---
 
+These commands allow you to reset your last commit
+
+| Command                          | Description                                                                  |
+| :------------------------------- | :--------------------------------------------------------------------------- |
+| `git commit --amend  --no-edit`  | Change your file without need to create another commit, you can use the same |
+| `git commit --amend -m "Commit"` | Reset your message of your last commit                                       |
+| `git reset --hard HEAD~1`        | Remove the last commit                                                       |
+
+---
+
 ## 6. Branch 
 
 ### Orphan branches
+
+**Useful commands in git:**
+
+```bash
+    create orphan branches : git checkout --orphan gh-pages
+    copy files/dirs: git checkout main -- dir/
+```
 
 ## 7. Branch 
 
