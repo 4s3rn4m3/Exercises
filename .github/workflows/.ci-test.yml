@@ -1,0 +1,124 @@
+name: CI Pipeline
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      oop: ${{ steps.filter.outputs.oop }}
+      os: ${{ steps.filter.outputs.os }}
+      katas: ${{ steps.filter.outputs.katas }}
+      bash_offensive: ${{ steps.filter.outputs.bash_offensive }}
+      python_offensive: ${{ steps.filter.outputs.python_offensive }}
+      git_ej_py: ${{ steps.filter.outputs.git_ej_py }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            os:
+              - 'OS/exercises/**'
+            oop:
+              - 'OOP/exercises/**'
+            katas:
+              - 'Katas/CP/**'
+            bash_offensive:
+              - 'Hacking/bash_offensive/exercises/**'
+            python_offensive:
+              - 'Hacking/python_offensive/exercises/**'
+            git_ej_py:
+              - 'Git/ejercicio_1/exercises/**'
+  test-git-ej:
+    needs: changes
+    if: ${{ needs.changes.outputs.git_ej_py == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: This is only a test in Git dir
+        run: |
+          change_folder=$(git diff --name-only origin/main...HEAD | grep "Git/" | head -n 1 | cut -d/ -f1-3)
+          echo "Folder detected: $change_folder"
+  test-oop:
+    needs: changes
+    if: ${{ needs.changes.outputs.oop == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run OOP Test in Java
+        run: |
+          change_folder=$(git diff --name-only origin/main...HEAD | grep "OOP/exercises/" | head -n 1 | cut -d/ -f1-3)
+          echo "Testing Java in $change_folder"
+  test-os:
+    needs: changes
+    if: ${{ needs.changes.outputs.os == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run OS Test in C
+        run: |
+          change_folder=$(git diff --name-only origin/main...HEAD | grep "OS/exercises/" | head -n 1 | cut -d/ -f1-3)
+          echo "Testing C in $change_folder"
+  test-katas:
+    needs: changes
+    if: ${{ needs.changes.outputs.katas == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run Kata Test in C++
+        run: |
+          change_folder=$(git diff --name-only origin/main...HEAD | grep "Katas/CP/" | head -n 1 | cut -d/ -f1-3)
+          echo "Testing C++ in $change_folder"
+  test-bash_offensive:
+    needs: changes
+    if: ${{ needs.changes.outputs.bash_offensive == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run Bash Test
+        run: |
+          change_folder=$(git diff --name-only origin/main...HEAD | grep "Hacking/bash_offensive/exercises/" | head -n 1 | cut -d/ -f1-4)
+          echo "Testing Bash in $change_folder"
+  test-python_offensive:
+    needs: changes
+    if: ${{ needs.changes.outputs.python_offensive == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run Python Test
+        run: |
+          change_folder=$(git diff --name-only origin/main...HEAD | grep "Hacking/python_offensive/exercises/" | head -n 1 | cut -d/ -f1-4)
+          echo "Testing Python in $change_folder"
+        # No quiero mezclar gh-pages con test por el momento , ya que el la web no quiero subir los test , ya que voy a hacer locales por el momento por ahroa no 
+        # quiero mezclar
+        # deploy-web:
+
+#    needs: changes
+#    if: ${{ needs.changes.outputs.web == 'true' }}
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v4
+#        with:
+#          fetch-depth: 0
+#      - name: Deploy to GitHub Pages
+#        uses: peaceiris/actions-gh-pages@v3
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          publish_dir: ./003_Exercises/Web/FrontendMentor
