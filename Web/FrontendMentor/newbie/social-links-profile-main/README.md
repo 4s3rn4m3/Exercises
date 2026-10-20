@@ -1,4 +1,4 @@
-# Frontend Mentor - Social links profile
+# Social links profile
 
 ## Live GitHub Pages
 
