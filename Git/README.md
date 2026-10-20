@@ -1,4 +1,4 @@
-### Git Internals: Content-Addressable Storage :3
+# Git Internals: Content-Addressable Storage :3
 
 Git is not merely a version control system; it is a **Content-Addressable Storage** system. Instead of tracking changes to files, Git saves **snapshots** of the entire project. The key to this is the hash: the content determines the address (ID), not the filename.
 
@@ -11,6 +11,7 @@ Git is not merely a version control system; it is a **Content-Addressable Storag
 - [Automation with Hooks](#4-automation-with-hooks)
 - [Technical Plumbing Commands](#5-technical-plumbing-commands)
 - [Configure SSH_KEY in your Linux](SSH_KEY.md)
+- [Github Actions](GITHUB_ACTIONS.md)
 
 ### Conventional Commits
 
@@ -110,65 +111,75 @@ These commands allow you to interact directly with the object database:
 
 ---
 
-These commands allow you to reset your last commit
+### Commit Correction
 
-| Command                          | Description                                                                  |
-| :------------------------------- | :--------------------------------------------------------------------------- |
-| `git commit --amend  --no-edit`  | Change your file without need to create another commit, you can use the same |
-| `git commit --amend -m "Commit"` | Reset your message of your last commit                                       |
-| `git reset --hard HEAD~1`        | Remove the last commit                                                       |
+| Command                               | Description                                                              |
+| :------------------------------------ | :----------------------------------------------------------------------- |
+| `git commit --amend --no-edit`        | Update the last commit with staged changes without changing the message. |
+| `git commit --amend -m "New Message"` | Rewrite the last commit message.                                         |
+| `git reset --hard HEAD~1`             | Permanently discard the last commit and all its changes.                 |
 
 ---
 
-### 6. Branch 
+## 6. Branching and Merging
 
-When you create a branch, the new branch takes as reference the content of your previous branch where you **bring:**  
-`main` -> **(bring)** `css with the files/content of the main`
+### The Nature of Branches
 
-The branches aren't designed for split content categories like HTML, CSS, or JS; however, the branches are for split states or different versions of your project.
+A branch is not a folder or a copy of the code; it is merely a **pointer to a commit**.
 
-Most of the time they are used for specific modules/features to work locally, and when you finish your module, your test, or your specific task, then you go and merge the branch feature with the main and publish your module or the new function.
+#### Special Case: The Orphan Branch (`gh-pages`)
 
-#### Special Branch gh-pages
+An orphan branch is a branch that starts with no history. It is ideal for documentation or static sites.
 
-This is a special branch in GitHub because it's a branch where you can serve your static site or documentation about your project or your portfolio. The thing is that you can create an orphan branch; with that, you don't have all the files of the main, because you don't need it; you only need the files that are for the web, because that is the purpose of this branch. So that was my workflow to set this out.
+**Workflow for `gh-pages`:**
 
 ```bash
-# Create a orphan branch (empty)
-git checkout --orphan gh-pages
-
-# Remove all the file of the memory
-git rm -rf .
-
-# Copy the web or doc that I'm interesting in deploy
-git checkout main -- Web/
-
-# Then and , commit and pusth your branch in your origin
+git checkout --orphan gh-pages   # Create branch with no parent
+git rm -rf .                    # Clear working directory
+git checkout main -- Web/       # Pull only specific files from main
 git add Web/
-git commit -m "Add the Web files"
+git commit -m "Deploy static content"
 git push -u origin gh-pages
 ```
 
-_But you need to configure your pages in the setting of your repo..._
+#### Merge Strategies
 
-#### Fusion branches
+- **Fast-Forward:** Occurs when the target branch has no new commits since the feature branch started. Git simply moves the pointer forward.
+- **Three-Way Merge (Manual):** Occurs when both branches have diverged. Git finds the common ancestor and creates a new "Merge Commit" to join the two histories.
 
-- **Fast Forward:** When the files/dirs are only in one branch and you want to merge in your main branch before you push it.
-- **Manual Merge:** When two or more branches edit that dir/files and you want to merge... you need to do a manual merge.
+---
 
-```bash
-git checkout rama-principal
-git merge rama-secundaria
-```
+## 7. Collaborative Workflow: The Pull Request (PR)
 
-Also when do a "PR" it's a merge really.
+A PR is essentially a request to merge one branch into another, usually after a code review.
 
-### 7. Github Actions 
+**Professional PR Workflow (using SSH Aliases):**
 
-### 8. Pull Request
+1. **Fork** the original repository.
+2. **Clone** using the alias: `git clone git@github.com-uni:username/repo.git`
+3. **Configure local identity:** `git config --local user.email "uni@email.com"`
+4. **Setup remotes:**
+   - `origin`: Your fork.
+   - `upstream`: The original project.
+5. **Feature Cycle:**
+   ```bash
+   git checkout -b feature/new-component
+   # ... make changes ...
+   git add .
+   git commit -m "feat: add new component"
+   git push origin feature/new-component
+   ```
+6. **Sync and Cleanup:**
+   ```bash
+   git checkout main
+   git pull upstream main        # Keep your local main updated
+   git push origin main         # Update your fork
+   git branch -D feature/new-component # Delete local branch
+   ```
 
 ##### References
 
 - [Jon Mircha - Git Guide](https://jonmircha.com/git#github-pages)
 - [Book Git](https://git-scm.com/book/es/v2)
 - [Doc Github](https://docs.github.com/es)
+- [Pull Request](https://docs.github.com/en/pull-requests/reference/pull-requests)
