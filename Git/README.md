@@ -1,4 +1,4 @@
-# Git Internals: Content-Addressable Storage :3
+### Git Internals: Content-Addressable Storage :3
 
 Git is not merely a version control system; it is a **Content-Addressable Storage** system. Instead of tracking changes to files, Git saves **snapshots** of the entire project. The key to this is the hash: the content determines the address (ID), not the filename.
 
@@ -10,8 +10,9 @@ Git is not merely a version control system; it is a **Content-Addressable Storag
 - [The local lifecycle of Workflow](#3-the-local-lifecycle-workflow)
 - [Automation with Hooks](#4-automation-with-hooks)
 - [Technical Plumbing Commands](#5-technical-plumbing-commands)
+- [Configure SSH_KEY in your Linux](SSH_KEY.md)
 
-# Conventional Commits
+### Conventional Commits
 
 - feat: feat(web): add project social links.
 - fix: fix(workflow): fixed permission of writing in gh-pages.
@@ -21,11 +22,11 @@ Git is not merely a version control system; it is a **Content-Addressable Storag
 - test: test(oop): add cases of class car.
 - chore: chore(ci): create a workflow of automatic test.
 
-## 1. The Heart of Git: The `.git` Directory
+### 1. The Heart of Git: The `.git` Directory
 
 The `.git` folder is the object database where all project history and metadata are stored.
 
-### A. The Object Database (`objects/`)
+#### A. The Object Database (`objects/`)
 
 This is where Git stores all content using the **SHA-1 algorithm**, which generates a unique 40-character hexadecimal ID based on the file's content.
 
@@ -33,13 +34,13 @@ This is where Git stores all content using the **SHA-1 algorithm**, which genera
 - **Trees:** Store the directory structure. A tree maps filenames and permissions to the hashes of their corresponding blobs or other sub-trees.
 - **Commits:** Store the snapshot metadata: the author, the committer, the date, the commit message, and the hash of the **root Tree** representing the project state at that moment. They also point to the parent commit(s), creating the history chain.
 
-### B. References and Pointers
+#### B. References and Pointers
 
 - **`refs/`:** These are pointers to specific commit hashes. For example, a branch (like `main` or `gh-pages`) is simply a text file in `refs/heads/` containing the hash of the latest commit on that branch.
 - **`HEAD`:** A file that indicates the current active checkout (which branch or commit you are currently on).
   - **Example:** `snatbep [.git] $ cat HEAD` $\rightarrow$ `ref: refs/heads/main`
 
-### C. The Index File (Staging Area)
+#### C. The Index File (Staging Area)
 
 The **Index** is a binary file that acts as a "draft" for the next snapshot. When you run `git add`, Git:
 
@@ -48,7 +49,7 @@ The **Index** is a binary file that acts as a "draft" for the next snapshot. Whe
 
 ---
 
-## 2. Storage Optimization: Object Sharding
+### 2. Storage Optimization: Object Sharding
 
 To prevent the filesystem from slowing down due to thousands of files in a single directory, Git uses **sharding**.
 
@@ -68,19 +69,19 @@ _Note: Because Git is immutable, modifying a file creates a completely new hash 
 
 ---
 
-## 3. The Local Lifecycle (Workflow)
+### 3. The Local Lifecycle (Workflow)
 
 The movement of a file through the Git stages:
 
-1.  **Untracked:** Files in the working directory that have not been added to the index yet.
-2.  **Modified:** Files that were already tracked by Git but have changes in the working directory that are not yet staged.
-3.  **Staged:** Files that have been added to the index (`git add`). Their content is already saved as a blob in `objects/`.
-4.  **Committed:** Changes are permanently registered in the local repository. A commit object is created, and the branch pointer (`refs/heads/main`) is updated.
-5.  **Remote:** The local commits are pushed to a host (e.g., GitHub) via `git push`.
+1. **Untracked:** Files in the working directory that have not been added to the index yet.
+2. **Modified:** Files that were already tracked by Git but have changes in the working directory that are not yet staged.
+3. **Staged:** Files that have been added to the index (`git add`). Their content is already saved as a blob in `objects/`.
+4. **Committed:** Changes are permanently registered in the local repository. A commit object is created, and the branch pointer (`refs/heads/main`) is updated.
+5. **Remote:** The local commits are pushed to a host (e.g., GitHub) via `git push`.
 
 ---
 
-## 4. Automation with Hooks
+### 4. Automation with Hooks
 
 Hooks are scripts that Git executes before or after specific events (like committing). They are used to enforce professional standards and semantic rules.
 
@@ -96,7 +97,7 @@ If the `commit-msg` hook detects a bad format or an empty message, it will abort
 
 ---
 
-## 5. Technical Plumbing Commands
+### 5. Technical Plumbing Commands
 
 These commands allow you to interact directly with the object database:
 
@@ -119,24 +120,54 @@ These commands allow you to reset your last commit
 
 ---
 
-## 6. Branch 
+### 6. Branch 
 
-### Orphan branches
+When you create a branch, the new branch takes as reference the content of your previous branch where you **bring:**  
+`main` -> **(bring)** `css with the files/content of the main`
 
-**Useful commands in git:**
+The branches aren't designed for split content categories like HTML, CSS, or JS; however, the branches are for split states or different versions of your project.
+
+Most of the time they are used for specific modules/features to work locally, and when you finish your module, your test, or your specific task, then you go and merge the branch feature with the main and publish your module or the new function.
+
+#### Special Branch gh-pages
+
+This is a special branch in GitHub because it's a branch where you can serve your static site or documentation about your project or your portfolio. The thing is that you can create an orphan branch; with that, you don't have all the files of the main, because you don't need it; you only need the files that are for the web, because that is the purpose of this branch. So that was my workflow to set this out.
 
 ```bash
-    create orphan branches : git checkout --orphan gh-pages
-    copy files/dirs: git checkout main -- dir/
+# Create a orphan branch (empty)
+git checkout --orphan gh-pages
+
+# Remove all the file of the memory
+git rm -rf .
+
+# Copy the web or doc that I'm interesting in deploy
+git checkout main -- Web/
+
+# Then and , commit and pusth your branch in your origin
+git add Web/
+git commit -m "Add the Web files"
+git push -u origin gh-pages
 ```
 
-## 7. Branch 
+_But you need to configure your pages in the setting of your repo..._
 
-## 8. Github Actions 
+#### Fusion branches
 
-## 9. Pull Request
+- **Fast Forward:** When the files/dirs are only in one branch and you want to merge in your main branch before you push it.
+- **Manual Merge:** When two or more branches edit that dir/files and you want to merge... you need to do a manual merge.
 
-### References
+```bash
+git checkout rama-principal
+git merge rama-secundaria
+```
+
+Also when do a "PR" it's a merge really.
+
+### 7. Github Actions 
+
+### 8. Pull Request
+
+##### References
 
 - [Jon Mircha - Git Guide](https://jonmircha.com/git#github-pages)
 - [Book Git](https://git-scm.com/book/es/v2)
