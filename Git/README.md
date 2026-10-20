@@ -4,6 +4,8 @@ Git is not merely a version control system; it is a **Content-Addressable Storag
 
 **Index:**
 
+- [Conventional Commits](./Commits_Convention.md)
+- [Configure SSH_KEY in your Linux](./SSH_KEY.md)
 - [The Heart of Git ](#1-the-heart-of-git-the-git-directory)
 - [Storage Optimization](#2-storage-optimization-object-sharding)
 - [Conventional Commits](#conventional-commits)
@@ -12,18 +14,8 @@ Git is not merely a version control system; it is a **Content-Addressable Storag
 - [Technical Plumbing Commands](#5-technical-plumbing-commands)
 - [Branching and Merge](#6-branching-and-merging)
 - [Pull Request](#7-collaborative-workflow-the-pull-request-pr)
-- [Configure SSH_KEY in your Linux](SSH_KEY.md)
-- [Github Actions](GITHUB_ACTIONS.md)
+- [Github Actions](./GITHUB_ACTIONS.md)
 
-### Conventional Commits
-
-- feat: feat(web): add project social links.
-- fix: fix(workflow): fixed permission of writing in gh-pages.
-- docs: docs(web): update menu nav.
-- style: style(frontend): adjust color of the profile.
-- refactor: refactor(oop): improve the cicle of validation.
-- test: test(oop): add cases of class car.
-- chore: chore(ci): create a workflow of automatic test.
 
 ### 1. The Heart of Git: The `.git` Directory
 
