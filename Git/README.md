@@ -10,6 +10,8 @@ Git is not merely a version control system; it is a **Content-Addressable Storag
 - [The local lifecycle of Workflow](#3-the-local-lifecycle-workflow)
 - [Automation with Hooks](#4-automation-with-hooks)
 - [Technical Plumbing Commands](#5-technical-plumbing-commands)
+- [Branching and Merge](#6-branching-and-merging)
+- [Pull Request](#7-collaborative-workflow-the-pull-request-pr)
 - [Configure SSH_KEY in your Linux](SSH_KEY.md)
 - [Github Actions](GITHUB_ACTIONS.md)
 
