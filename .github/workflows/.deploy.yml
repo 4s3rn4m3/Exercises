@@ -1,27 +1,27 @@
-name: Deploy Web to GitHub Pages
+name: Deploy Web to GitHub Pages 󱍢
 
-# 1. Disparador: Se ejecuta cada vez que hagas push a la rama main
+# Disparador: Se ejecuta cada vez que hagas push a la rama main
 on:
   push:
     branches:
       - main
-    # Opcional: Solo se dispara si hay cambios en la carpeta Web
+    # Solo se dispara si hay cambios en la carpeta Web
     paths:
-      - 'Web/**'
+      - 'Web/FrontendMentor/**'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      # 2. Descargar el código del repositorio en la máquina virtual de GitHub
-      - name: Checkout 🛎️
+      # Descargar el código del repositorio en la máquina virtual de GitHub
+      - name: Checkout 󰶡 
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # 3. Desplegar la carpeta específica a la rama gh-pages
-      - name: Deploy 🚀
+      # Desplegar la carpeta específica a la rama gh-pages
+      - name: Deploy 
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./Web # AQUÍ indicas que solo suba el contenido de la carpeta Web
+          publish_dir: ./Web/FrontendMentor # AQUÍ indicas que solo suba el contenido de la carpeta Web
