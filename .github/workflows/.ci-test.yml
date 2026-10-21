@@ -47,7 +47,7 @@ jobs:
           change_folder=$(git diff --name-only origin/main...HEAD | grep "Git/exercises" | head -n 1 | cut -d/ -f1-3)
           echo "Folder detected: $change_folder"
           cd $change_folder
-          python -m unittest discover -v $change_folder/tests
+          python -m unittest discover -s tests -t .
   test-oop:
     needs: changes
     if: ${{ needs.changes.outputs.oop == 'true' }}
