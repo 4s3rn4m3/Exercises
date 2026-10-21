@@ -1,2 +1,6 @@
 labs/
 *.zip
+*.pka
+*.cpython-314.pyc
+*.*.pyc
+
