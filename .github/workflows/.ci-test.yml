@@ -44,7 +44,11 @@ jobs:
           fetch-depth: 0
       - name: This is only a test in Git dir
         run: |
-          change_folder=$(git diff --name-only origin/main...HEAD | grep "Git/exercises" | head -n 1 | cut -d/ -f1-3)
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            change_folder=$(git diff --name-only origin/main...HEAD | grep "Git/exercises" | head -n 1 | cut -d/ -f1-3)
+          else
+            change_folder=$(git diff-tree --no-commit-id --name-only -r HEAD | grep "Git/exercises" | head -n 1 | cut -d/ -f1-3)
+          fi
           echo "Folder detected: $change_folder"
           cd $change_folder
           python -m unittest discover -s tests -t .
